@@ -1,23 +1,18 @@
 ---
-name: meeting-moments-library-builder-cowork
-description: >
-  Discovers the user's authorized Microsoft 365 meetings and transcripts, then builds a
-  reviewable library of verified moments in Microsoft 365 Copilot Cowork. Use whenever
-  the user wants a how-to library, decision log, customer-voice library, demo highlights,
-  lessons-learned archive, onboarding library, or another searchable collection of
-  timestamped meeting moments. Search the date range and meeting series the user chooses
-  using native Microsoft 365 meeting/transcript capabilities; fall back to attached
-  transcripts only when discovery or transcript access is unavailable. Verify every
-  proposed entry against transcript evidence, require
-  approval before publication, then deliver portable HTML, CSV, and JSON library files.
-  Never invent a timestamp, presenter, recording link, or quote. Never publish transcript
-  content, upload files, or write to SharePoint without explicit confirmation.
-cowork:
-  category: productivity
-  icon: Library
-license: MIT
+name: Meeting Moments Library Builder for Cowork
+description: "Discover authorized Microsoft 365 meeting transcripts and turn them into a reviewed, searchable library of verified timestamped moments, delivered as portable HTML, CSV, and JSON files."
+agentDescription: "Discovers the user's authorized Microsoft 365 meetings and transcripts, then builds a reviewable library of verified moments in Microsoft 365 Copilot Cowork. Use whenever the user wants a how-to library, decision log, customer-voice library, demo highlights, lessons-learned archive, onboarding library, or another searchable collection of timestamped meeting moments. Search the date range and meeting series the user chooses using native Microsoft 365 meeting/transcript capabilities; fall back to attached transcripts only when discovery or transcript access is unavailable. Verify every proposed entry against transcript evidence, require approval before publication, then deliver portable HTML, CSV, and JSON library files. Never invent a timestamp, presenter, recording link, or quote. Never publish transcript content, upload files, or write to SharePoint without explicit confirmation.\n"
+platforms: [Cowork]
+tags: [meetings, transcripts, knowledge, library, deep-links, productivity]
+author: Sandra Boucenna
+authorUrl: "https://github.com/SandraBcna"
+authorGithub: SandraBcna
+version: 1.1.0
+createdAt: 2026-09-28
+updatedAt: 2026-09-28
+featured: false
+bundle: bundles/meeting-moments-library-builder-cowork.zip
 ---
-
 # Meeting Moments Library Builder for Cowork
 
 Find authorized Microsoft 365 meeting transcripts and turn them into a portable library
@@ -110,11 +105,8 @@ Read `references/meeting-discovery.md`.
    not array position.
 6. Read transcript segments (`workiq_get_meeting_transcript`) in bounded pages until the
    selected transcript is complete.
-7. Resolve the recording/recap URL automatically using the approved ladder in
-   `references/meeting-discovery.md`. Never use the Teams join URL or calendar event URL as
-   if it were the recording link.
-8. Only after both transcript content and a verified recording URL are available, inspect
-   the transcript for candidate moments.
+7. Resolve a durable recording or recap URL only from authorized Microsoft 365 metadata or
+   user-supplied work context. Never use the Teams join URL as if it were a recording link.
 
 If discovery, transcript access, or recording-link resolution fails, state the precise
 blocker and offer the attachment fallback. Do not claim no transcript exists merely
@@ -164,9 +156,8 @@ Rules:
 - Keep each moment within the approved duration unless the user approves splitting it.
 - Do not store full transcript text in the library.
 - Do not infer a presenter from speaking style, meeting title, or calendar organizer.
-- A missing recording URL excludes the meeting before candidate extraction. Report the
-  meeting under skipped sources with the precise automatic-resolution blocker. Do not
-  create a candidate or output row, and do not ask the user to hunt for or paste a URL.
+- A missing recording URL is allowed for a draft candidate, but it cannot be marked
+  publish-ready.
 
 Use the schema in `references/output-schema.md`.
 
